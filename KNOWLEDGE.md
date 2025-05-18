@@ -46,8 +46,8 @@ The project has a structured directory organization, key components including a 
 ### MCP Server Integration (know_836b1063a519495b9b7c762594b4cf2a)
 Details of the four MCP servers: Airtable MCP Server for database operations, DesktopCommanderMCP for system interaction, Exa MCP Server for search operations, and Context7 for documentation management. The integration strategy covers authentication, standardized interfaces, and tool discovery.
 
-### Model Configuration (know_91e684a0611e4dee8d9adb49c81312fc)
-Qwen3 model selection includes Qwen3-235b for the Router Agent and Qwen3-32b for specialized agents. Configuration parameters include temperature, top_p, max_tokens, and timeout settings customized per agent role.
+### Model Configuration (know_b396aff2213d4f0fb6024c92a45bb348)
+Qwen3 model selection includes Qwen3-235b for the Router Agent and Qwen3-32b for specialized agents, using OpenRouter as the model server. Configuration parameters include temperature, top_p, max_tokens, and timeout settings customized per agent role.
 
 ## Best Practices
 

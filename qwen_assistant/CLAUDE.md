@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 1. Create a `.env` file in the project root with your API keys:
    ```
-   DASHSCOPE_API_KEY=your_dashscope_key
+   OPENROUTER_API_KEY=your_openrouter_key
    EXA_API_KEY=your_exa_key
    AIRTABLE_API_KEY=your_airtable_key
    ```

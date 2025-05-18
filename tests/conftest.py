@@ -20,7 +20,7 @@ def test_config() -> Dict[str, Any]:
         },
         "llm": {
             "model": "qwen3-32b",
-            "model_server": "dashscope",
+            "model_server": "openrouter",
             "api_key": "test_key"
         },
         "mcp_servers": {

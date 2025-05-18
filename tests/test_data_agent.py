@@ -19,7 +19,7 @@ def mock_qwen_agent():
 @pytest.fixture
 def data_agent():
     """Create a test data agent with mocked config."""
-    llm_config = {"model": "qwen-max", "model_server": "dashscope", "api_key": "mock-key"}
+    llm_config = {"model": "qwen-max", "model_server": "openrouter", "api_key": "mock-key"}
     mcp_config = {
         "airtable": {
             "command": "mock-command",
@@ -44,7 +44,7 @@ def test_data_agent_mcp_extraction(mock_qwen_agent):
         "other_mcp": {"command": "other"}
     }
     
-    llm_config = {"model": "qwen-max", "model_server": "dashscope", "api_key": "mock-key"}
+    llm_config = {"model": "qwen-max", "model_server": "openrouter", "api_key": "mock-key"}
     agent = DataAgent(llm_config=llm_config, mcp_config=full_mcp_config)
     assert "airtable" in agent.mcp_config
     assert "other_mcp" not in agent.mcp_config

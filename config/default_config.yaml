@@ -5,8 +5,8 @@ app:
 
 llm:
   model: "qwen3-32b"
-  model_server: "dashscope"
-  api_key: "${DASHSCOPE_API_KEY}"
+  model_server: "openrouter"
+  api_key: "${OPENROUTER_API_KEY}"
   generate_cfg:
     top_p: 0.8
 
