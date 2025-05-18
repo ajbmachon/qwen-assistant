@@ -44,9 +44,11 @@ The system follows a modular architecture with clear separation of concerns:
 
 2. Set up your Python environment:
    ```bash
-   # Make sure you have Poetry installed
-   # Install dependencies
+   # Install using Poetry (recommended)
    poetry install
+
+   # Or install using pip
+   pip install -e .
    ```
 
 3. Configure your environment:
@@ -55,6 +57,53 @@ The system follows a modular architecture with clear separation of concerns:
    cp .env.example .env
    # Edit .env with your API keys and configuration
    ```
+
+## Authentication
+
+The system uses a secure authentication management system for handling API keys and credentials:
+
+### Credential Storage Options
+
+- **Environment Variables**: Default method using a `.env` file (uses python-dotenv)
+- **System Keyring**: Optional more secure method for storing credentials in the system's secure credential store
+
+### Required Credentials
+
+- **OpenRouter API Key**: Required for accessing Qwen3 models
+- **Airtable API Key**: Required for the Data Agent
+- **Exa API Key**: Required for the Search Agent
+- **Context7 Token**: Optional for the Documentation Agent
+- **DesktopCommander Token**: Optional for the Desktop Agent
+
+### Configuration
+
+Authentication settings can be configured in `config/config.yaml`:
+
+```yaml
+auth:
+  credentials_file: .env      # Path to the credentials file
+  use_keyring: false          # Whether to use system keyring
+  service_name: qwen_assistant # Service name for keyring
+```
+
+Or via environment variables:
+
+```bash
+QWEN_AUTH_USE_KEYRING=true
+QWEN_AUTH_SERVICE_NAME=custom_service
+```
+
+### Checking Credential Status
+
+Run the main application to check credential status:
+
+```bash
+# Using Poetry
+poetry run python -m qwen_assistant.main
+
+# Using installed package
+qwen-assistant
+```
 
 ## Usage
 
@@ -73,6 +122,16 @@ This project is structured in phases:
 1. **MVP Phase**: Basic router, core specialized agents, fundamental MCP integrations, and simple UI
 2. **Enhancement Phase**: Advanced agent coordination, enhanced context management, and user experience improvements
 3. **Scaling Phase**: Dynamic agent loading, performance optimization, and enterprise integration
+
+### Running Tests
+
+```bash
+# Run all tests
+poetry run pytest
+
+# Run with coverage
+poetry run pytest --cov=qwen_assistant tests/
+```
 
 ## Contributing
 
