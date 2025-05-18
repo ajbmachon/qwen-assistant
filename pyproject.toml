@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "qwen-assistant"
+version = "0.1.0"
+description = "An implementation of a Qwen3-based Agent-Army architecture with MCP integration"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "qwen_assistant", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-dotenv = "^1.0.0"
+pyyaml = "^6.0"
+gradio = "^4.16.0"
+cryptography = "^42.0.0"
+pydantic = "^2.5.0"
+loguru = "^0.7.0"
+keyring = "^24.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+ruff = "^0.1.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+qwen-assistant = "qwen_assistant.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
