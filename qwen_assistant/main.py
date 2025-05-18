@@ -13,6 +13,9 @@ import yaml
 from dotenv import load_dotenv
 
 from qwen_assistant.agents.router import RouterAgent
+from qwen_assistant.agents.data import DataAgent
+from qwen_assistant.agents.search import SearchAgent
+from qwen_assistant.agents.documentation import DocumentationAgent
 from qwen_agent.gui import WebUI
 from qwen_agent.utils.output_beautify import typewriter_print
 
@@ -81,13 +84,13 @@ def process_env_vars(config: Dict[str, Any]) -> Dict[str, Any]:
     return config
 
 
-def main(config_path: Optional[str] = None, use_gui: bool = False) -> None:
+def main(config_path: Optional[str] = None, use_gui: bool = True) -> None:
     """
     Main entry point for the Qwen-Assist-2 system.
     
     Args:
         config_path: Path to the configuration file. If None, uses default config.
-        use_gui: Whether to launch the Gradio UI.
+        use_gui: Whether to launch the Gradio UI. Default is True.
     """
     # Load environment variables
     load_dotenv()
@@ -119,10 +122,36 @@ def main(config_path: Optional[str] = None, use_gui: bool = False) -> None:
             mcp_config=config.get("mcp_servers", {}),
         )
         
+        # Initialize specialized agents
+        data_agent = DataAgent(
+            llm_config=config.get("llm", {}),
+            mcp_config=config.get("mcp_servers", {})
+        )
+        
+        search_agent = SearchAgent(
+            llm_config=config.get("llm", {}),
+            mcp_config=config.get("mcp_servers", {})
+        )
+        
+        documentation_agent = DocumentationAgent(
+            llm_config=config.get("llm", {}),
+            mcp_config=config.get("mcp_servers", {})
+        )
+        
+        # Set up agent map
+        agent_map = {
+            "router": router,
+            "data": data_agent,
+            "search": search_agent,
+            "documentation": documentation_agent
+        }
+        
         if use_gui:
-            # Launch the Gradio UI
-            logger.info("Launching Gradio UI...")
-            WebUI(router).run()
+            # Launch the Gradio UI using Qwen-Agent's native WebUI
+            logger.info("Launching Qwen-Agent WebUI...")
+            WebUI(router, agent_map=agent_map).run(
+                port=config.get("ui", {}).get("port", 7860)
+            )
         else:
             # Simple command-line interaction
             logger.info("Starting command-line interface...")
@@ -156,31 +185,6 @@ def main(config_path: Optional[str] = None, use_gui: bool = False) -> None:
                 # Add assistant response to history
                 if response:
                     messages.extend(response)
-                
-        # Initialize data agent
-        data_agent = DataAgent(
-            llm_config=config.get("llm", {}),
-            mcp_config=config.get("mcp_servers", {})
-        )
-        
-        # Set up agent map
-        agent_map = {
-            "router": router_agent,
-            "data": data_agent
-        }
-        
-        # Initialize UI
-        ui_config = config.get("ui", {})
-        ui = GradioInterface(
-            primary_agent=router_agent,
-            agent_map=agent_map,
-            config=ui_config
-        )
-        
-        # Launch UI
-        logger.info(f"Launching UI on port {ui_config.get('port', 7860)}")
-        ui.launch()
-        
     except Exception as e:
         logger.error(f"Error running Qwen-Assist-2: {e}", exc_info=True)
         sys.exit(1)
@@ -189,7 +193,7 @@ def main(config_path: Optional[str] = None, use_gui: bool = False) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Qwen-Assist-2: Multi-agent system built on the Qwen3 LLM")
     parser.add_argument("--config", "-c", type=str, help="Path to configuration file")
-    parser.add_argument("--gui", "-g", action="store_true", help="Launch with Gradio UI")
+    parser.add_argument("--no-gui", "-n", action="store_true", help="Launch without Gradio UI (command-line only)")
     parser.add_argument("--debug", "-d", action="store_true", help="Enable debug logging")
     
     args = parser.parse_args()
@@ -197,4 +201,4 @@ if __name__ == "__main__":
     if args.debug:
         logging.getLogger().setLevel(logging.DEBUG)
     
-    main(config_path=args.config, use_gui=args.gui)
+    main(config_path=args.config, use_gui=not args.no_gui)
