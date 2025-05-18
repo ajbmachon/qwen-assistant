@@ -7,19 +7,19 @@
       "description": "Development agent responsible for implementing features and fixing bugs",
       "program": "claude",
       "autoAccept": false,
-      "mcpServers": ["atlas", "web-search", "context7"]
+      "mcpServers": ["atlas", "web-search", "context7", "exa"]
     },
     "review": {
       "description": "Review agent responsible for code review and quality assurance",
       "program": "claude",
       "autoAccept": true,
-      "mcpServers": ["atlas", "web-search", "context7"]
+      "mcpServers": ["atlas", "web-search", "context7", "exa"]
     },
     "test": {
       "description": "Testing agent responsible for writing and executing tests",
       "program": "claude",
       "autoAccept": true,
-      "mcpServers": ["atlas", "web-search", "context7"]
+      "mcpServers": ["atlas", "web-search", "context7", "exa"]
     }
   },
   "mcpServers": {
@@ -37,6 +37,11 @@
       "command": "claude mcp add context7 npx context7@latest --project=claude-code-orchestration",
       "roles": ["dev", "review", "test"],
       "permissions": "enabled"
+    },
+    "exa": {
+      "command": "claude mcp add exa exa-mcp-server --api-key=${EXA_API_KEY}",
+      "roles": ["dev", "review", "test"],
+      "permissions": "enabled"
     }
   },
   "workspaceSettings": {
@@ -44,6 +49,66 @@
     "baseBranch": "main",
     "commitMessageTemplate": "[{agent}] {message}",
     "autoCommitOnPause": true,
-    "autoPushOnCommit": false
+    "autoPushOnCommit": false,
+    "toolPermissions": {
+      "bash": "allow",
+      "read": "allow",
+      "write": "allow",
+      "edit": "allow",
+      "notebookRead": "allow",
+      "notebookEdit": "allow",
+      "ls": "allow",
+      "glob": "allow",
+      "grep": "allow",
+      "agent": "allow",
+      "webSearch": "allow",
+      "webFetch": "allow"
+    },
+    "allowedCommands": [
+      "git branch",
+      "git checkout",
+      "git status",
+      "git add",
+      "git commit",
+      "git push",
+      "git pull",
+      "git fetch",
+      "git merge",
+      "git rebase",
+      "git log",
+      "git diff",
+      "git stash",
+      "git reset",
+      "git show",
+      "git clone",
+      "poetry install",
+      "poetry add",
+      "poetry remove",
+      "poetry update",
+      "poetry run",
+      "poetry build",
+      "poetry shell",
+      "poetry env",
+      "poetry check",
+      "poetry export",
+      "poetry list",
+      "poetry show",
+      "poetry config",
+      "cat",
+      "ls",
+      "pwd",
+      "cd",
+      "mkdir",
+      "touch",
+      "rm",
+      "cp",
+      "mv",
+      "find",
+      "grep",
+      "echo",
+      "python",
+      "pytest",
+      "pip"
+    ]
   }
 }
