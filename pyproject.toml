@@ -1,0 +1,21 @@
+[project]
+name = "qwen-assist-2"
+version = "0.1.0"
+description = "Qwen Assist"
+authors = [
+    {name = "ajbmachon",email = "ajbmachon2@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "qwen-agent[code-interpreter,gui,mcp,rag] (>=0.0.1)",
+    "pytest (>=7.4.0)",
+    "pytest-cov (>=4.1.0)",
+    "mypy (>=1.5.1)",
+    "ruff (>=0.0.290)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

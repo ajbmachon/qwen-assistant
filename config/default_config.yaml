@@ -1,0 +1,59 @@
+app:
+  name: "Qwen-Assist-2"
+  description: "Multi-agent system built on the Qwen3 LLM"
+  version: "0.1.0"
+
+llm:
+  model: "qwen3-32b"
+  model_server: "dashscope"
+  api_key: "${DASHSCOPE_API_KEY}"
+  generate_cfg:
+    top_p: 0.8
+
+mcp_servers:
+  # Context7 Documentation MCP
+  context7:
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-context7"
+  
+  # Exa Search MCP
+  exa:
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-exa"
+      - "--api-key"
+      - "${EXA_API_KEY}"
+  
+  # Desktop Commander MCP
+  desktop:
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-desktop-commander"
+  
+  # Airtable MCP
+  airtable:
+    command: "npx"
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-airtable"
+      - "--api-key"
+      - "${AIRTABLE_API_KEY}"
+
+ui:
+  port: 7860
+  share: false
+  title: "Qwen-Assist"
+  theme: "default"
+
+routing:
+  default_agent: "router"
+  timeout: 60
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/app.log"
