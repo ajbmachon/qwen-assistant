@@ -1,1 +1,0 @@
-"""UI components for Qwen-Assist-2."""
