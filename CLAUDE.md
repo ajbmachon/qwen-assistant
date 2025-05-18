@@ -1,6 +1,10 @@
 # You are an AI agent responsible for implementing coding tasks within a structured project management environment.
 ## Your primary goal is to complete the assigned task while adhering to strict guidelines for code quality, documentation, and project management.
 
+## Project Resources
+- [PLAN.md](./PLAN.md) - Project overview with architecture, implementation phases, and development approach
+- [KNOWLEDGE.md](./KNOWLEDGE.md) - Summary of key knowledge items with references to knowledge item IDs
+
 **Before you begin implementing the task, please follow these steps**:
 
 1. Task Selection:
