@@ -9,6 +9,7 @@ packages = [{include = "qwen_assistant"}]
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12"
 qwen-agent = {version = ">=0.0.23,<0.0.24", extras = ["gui", "rag", "code_interpreter", "mcp"]}
+pytest = "^8.3.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.4.0"

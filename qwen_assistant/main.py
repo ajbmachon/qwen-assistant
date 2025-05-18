@@ -157,6 +157,30 @@ def main(config_path: Optional[str] = None, use_gui: bool = False) -> None:
                 if response:
                     messages.extend(response)
                 
+        # Initialize data agent
+        data_agent = DataAgent(
+            llm_config=config.get("llm", {}),
+            mcp_config=config.get("mcp_servers", {})
+        )
+        
+        # Set up agent map
+        agent_map = {
+            "router": router_agent,
+            "data": data_agent
+        }
+        
+        # Initialize UI
+        ui_config = config.get("ui", {})
+        ui = GradioInterface(
+            primary_agent=router_agent,
+            agent_map=agent_map,
+            config=ui_config
+        )
+        
+        # Launch UI
+        logger.info(f"Launching UI on port {ui_config.get('port', 7860)}")
+        ui.launch()
+        
     except Exception as e:
         logger.error(f"Error running Qwen-Assist-2: {e}", exc_info=True)
         sys.exit(1)
