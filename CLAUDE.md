@@ -27,6 +27,7 @@
    - Write unit tests for all new functionality.
    - Ensure test coverage is at least 80%.
    - Run all tests to verify the code works as expected.
+   - **Always use poetry to run tests or files. this handles our dependencies for the project**
 
 6. Documentation:
    - Update task status in Atlas when starting and completing work.

@@ -5,9 +5,6 @@ import sys
 import pytest
 from typing import Dict, Any
 
-# Add project root to path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 @pytest.fixture
 def test_config() -> Dict[str, Any]:
     """Return a test configuration.
@@ -31,6 +28,11 @@ def test_config() -> Dict[str, Any]:
                 "command": "echo",
                 "args": ["Mocked Context7 Server"]
             }
+        },
+        "routing": {
+            "default_agent": "router",
+            "available_agents": ["documentation", "search", "desktop", "data", "router"],
+            "timeout": 60
         },
         "ui": {
             "port": 7861,

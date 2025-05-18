@@ -1,0 +1,64 @@
+{
+  "version": "1.0.0",
+  "name": "claude-code-orchestration",
+  "description": "Multi-agent Claude Code development system with ATLAS integration",
+  "agents": {
+    "dev": {
+      "description": "Development agent responsible for implementing features and fixing bugs",
+      "program": "claude",
+      "autoAccept": false,
+      "mcpServers": ["atlas", "git-local", "db-readonly", "web-search", "context7"]
+    },
+    "review": {
+      "description": "Review agent responsible for code review and quality assurance",
+      "program": "claude",
+      "autoAccept": false,
+      "mcpServers": ["atlas", "git-local", "web-search", "context7"]
+    },
+    "test": {
+      "description": "Testing agent responsible for writing and executing tests",
+      "program": "claude",
+      "autoAccept": false,
+      "mcpServers": ["atlas", "git-local-readonly", "web-search", "context7"]
+    }
+  },
+  "mcpServers": {
+    "atlas": {
+      "command": "claude mcp add atlas atlas-mcp-server --env ATLAS_NEO4J_URI=${ATLAS_NEO4J_URI}",
+      "roles": ["dev", "review", "test"],
+      "permissions": "readwrite"
+    },
+    "git-local": {
+      "command": "claude mcp add git-local git-mcp",
+      "roles": ["dev", "review"],
+      "permissions": "readwrite"
+    },
+    "git-local-readonly": {
+      "command": "claude mcp add git-local-readonly git-mcp --readonly",
+      "roles": ["test"],
+      "permissions": "read"
+    },
+    "db-readonly": {
+      "command": "claude mcp add db-readonly postgres-mcp --env DB_URL=${DB_URL}",
+      "roles": ["dev"],
+      "permissions": "read"
+    },
+    "web-search": {
+      "command": "claude mcp add web-search web-search-mcp --api-key=${SEARCH_API_KEY}",
+      "roles": ["dev", "review", "test"],
+      "permissions": "enabled"
+    },
+    "context7": {
+      "command": "claude mcp add context7 npx context7@latest --project=claude-code-orchestration",
+      "roles": ["dev", "review", "test"],
+      "permissions": "enabled"
+    }
+  },
+  "workspaceSettings": {
+    "useGitWorktrees": true,
+    "baseBranch": "main",
+    "commitMessageTemplate": "[{agent}] {message}",
+    "autoCommitOnPause": true,
+    "autoPushOnCommit": false
+  }
+}

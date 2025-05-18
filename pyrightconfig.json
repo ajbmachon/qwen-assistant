@@ -1,0 +1,6 @@
+{
+  "venvPath": ".",
+  "venv": ".venv", // match the folder name of your venv
+  "pythonVersion": "3.11", // or whatever version you're using
+  "exclude": ["**/__pycache__/**"]
+}
