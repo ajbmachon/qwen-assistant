@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__atlas__atlas_task_create",
+      "mcp__atlas__atlas_task_list",
+      "mcp__atlas__atlas_task_update",
+      "mcp__atlas__atlas_task_delete",
+      "mcp__atlas__atlas_project_list",
+      "mcp__atlas__atlas_project_update",
+      "mcp__atlas__atlas_project_create",
+      "mcp__atlas__atlas_knowledge_add",
+      "mcp__atlas__atlas_knowledge_list",
+      "mcp__atlas__atlas_knowledge_update",
+      "mcp__atlas__atlas_knowledge_delete",
+      "mcp__atlas__atlas_unified_search",
+      "mcp__atlas__atlas_deep_research",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(ls)",
+      "Bash(mkdir)",
+      "Bash(cat)",
+      "Bash(find)",
+      "Bash(grep)",
+      "Bash(pwd)",
+      "Bash(cd)",
+      "Bash(git add:*)",
+      "git add",
+      "git status",
+      "git commit",
+      "git stash",
+      "git checkout",
+      "pytest",
+      "poetry"
+    ],
+    "deny": []
+  }
+}
