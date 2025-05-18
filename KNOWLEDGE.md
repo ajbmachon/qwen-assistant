@@ -4,6 +4,24 @@ This document provides a summary of key knowledge items in the Qwen Multi-Assist
 
 ## Architecture and System Design
 
+### Research Findings Summary (know_f3e9b9028afb4df3b816177e0748f606)
+Comprehensive summary of all research findings related to the Qwen Multi-Assistant system, including architecture, MCP server integration, technical requirements, testing strategy, and implementation phases. This consolidated knowledge item provides a holistic view of the research outcomes and serves as a central reference point.
+
+### Key Components and Architecture (know_7528049336ab4f79beab8cf4eecfacfd)
+Detailed analysis of the Qwen3 Agent-Army architecture, including the Router Agent (central orchestrator), specialized agents (Data, Desktop, Search, Documentation), MCP integration layer, context management system, and user interface. Provides insights into architectural principles, communication flow, and component responsibilities.
+
+### MCP Server Integration (know_97ec0213740f457f99dee6f2bc0439fc)
+Comprehensive overview of the Model Context Protocol (MCP) servers, their capabilities, and integration architecture. Details the four key MCP servers (Airtable, DesktopCommanderMCP, Exa, Context7), their primary functions, integration considerations, and implementation strategy.
+
+### Technical Requirements (know_ab38f9816bb24ae9af63fbbadfd50e5e)
+Detailed specification of technical requirements and dependencies for implementing the Qwen Multi-Assistant system, including core system requirements, component-specific dependencies, external service dependencies, infrastructure requirements, development tools, and installation/setup procedures.
+
+### Testing Strategy (know_02b6823775394cbb9d31d834ada3d5c5)
+Comprehensive testing approach for the Qwen Multi-Assistant system, covering unit testing, integration testing, system testing, and special considerations such as LLM API mocking, MCP server testing, context management testing, and UI testing. Includes test data management, CI/CD integration, and best practices.
+
+### Implementation Phases (know_1fa04230b0914baa804f210cd0b392de)
+Detailed roadmap for implementing the Qwen Multi-Assistant system in three phases: MVP, Enhancement, and Scaling. Outlines specific implementation steps for each phase, dependencies between phases, and success criteria to ensure systematic development progress.
+
 ### System Architecture (know_443e40c02580465195a25800f19e9397)
 The Qwen Multi-Assistant system follows a modular architecture with a Router Agent as central orchestrator, specialized agents for different domains, a context management system, and a Gradio-based UI. The architecture emphasizes loose coupling, single responsibility, extensibility, and progressive enhancement.
 
@@ -64,6 +82,9 @@ Security best practices include proper API key management, data protection measu
 Testing leverages pytest as the primary framework with unit testing for individual components, integration testing for component interactions, and system testing for end-to-end workflows. Special considerations include mock responses for LLM API calls and test fixtures for MCP server responses.
 
 ## Development Phases
+
+### Implementation Phases Deep Dive (know_1fa04230b0914baa804f210cd0b392de)
+Provides a comprehensive implementation plan for the Qwen Multi-Assistant system across three phases (MVP, Enhancement, Scaling). Details specific implementation steps, dependencies between phases, and success criteria for each phase to guide development progress.
 
 ### MVP Phase (covered in multiple knowledge items)
 Focuses on basic router implementation, core specialized agents, fundamental MCP integrations, and a simple UI with minimal context sharing.
