@@ -9,10 +9,12 @@ from dotenv import load_dotenv
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.utils import load_config, setup_logging
-from src.agents.router import RouterAgent
-from src.agents.base import BaseAgent
-from src.ui.gradio_interface import GradioInterface
+from qwen_assistant.utils.config import load_config
+from qwen_assistant.utils.logging import setup_logging
+from qwen_assistant.agents.router import RouterAgent
+from qwen_assistant.agents.base import BaseAgent
+from qwen_assistant.agents.data import DataAgent
+from qwen_assistant.ui.gradio_interface import GradioInterface
 
 logger = logging.getLogger(__name__)
 
@@ -62,11 +64,23 @@ def main():
             mcp_config=config.get("mcp_servers", {})
         )
         
+        # Initialize data agent
+        data_agent = DataAgent(
+            llm_config=config.get("llm", {}),
+            mcp_config=config.get("mcp_servers", {})
+        )
+        
+        # Set up agent map
+        agent_map = {
+            "router": router_agent,
+            "data": data_agent
+        }
+        
         # Initialize UI
         ui_config = config.get("ui", {})
         ui = GradioInterface(
             primary_agent=router_agent,
-            agent_map={"router": router_agent},
+            agent_map=agent_map,
             config=ui_config
         )
         

@@ -13,6 +13,33 @@ Multi-agent system built on the Qwen3 LLM using the Qwen-Agent framework. This p
 - Gradio-based UI for interaction
 - Context sharing between agents
 
+### Data Agent
+
+The Data Agent provides structured data operations via Airtable MCP, allowing users to:
+
+- List and navigate Airtable bases, tables, and fields
+- Query data with customizable filters and limits
+- Create, update, and delete records
+- Analyze data with AI-powered insights
+
+Example usage:
+```python
+from qwen_assistant.agents.data import DataAgent
+
+# Initialize with MCP config
+data_agent = DataAgent(mcp_config={"airtable": {...}})
+
+# Query records
+for response in data_agent.query_records(
+    base_id="appXXXXXXXXXXXXXX",
+    table_id="tblYYYYYYYYYYYYYY",
+    filter_formula="AND({Status}='Active')",
+    max_records=10
+):
+    # Process response
+    print(response)
+```
+
 ## Getting Started
 
 ### Prerequisites
@@ -43,14 +70,14 @@ pip install -r requirements.txt
 ### Running the Application
 
 ```bash
-python src/main.py
+python -m qwen_assistant.main
 ```
 
 ## Project Structure
 
 ```
 qwen-assist-2/
-├── src/                    # Source code
+├── qwen_assistant/         # Source code
 │   ├── agents/             # Agent implementations
 │   │   ├── router.py       # Router agent
 │   │   ├── documentation.py # Documentation agent
