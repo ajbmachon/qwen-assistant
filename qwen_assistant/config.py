@@ -169,3 +169,4 @@ def _update_from_env(config: Dict[str, Any]) -> None:
                         target[part] = value
                 else:
                     target = target[part]
+
