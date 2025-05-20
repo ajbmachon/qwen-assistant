@@ -52,23 +52,20 @@ Key credentials include:
    # Edit .env with your actual API keys
    ```
 
-3. Use the authentication manager in your code:
+3. Use the security manager in your code:
    ```python
-   from src.auth import AuthManager, AuthScope
+   from qwen_assistant.security.security_manager import get_security_manager
 
-   # Initialize with default config (uses .env file)
-   auth_manager = AuthManager()
+   security = get_security_manager()
 
-   # Check if all required credentials are available
-   valid, missing = auth_manager.validate_credentials()
-   if not valid:
-       print(f"Missing credentials: {missing}")
+   # Validate API keys
+   results = security.validate_api_keys()
+   for key, info in results.items():
+       print(key, info)
 
-   # Get a specific credential
-   api_key = auth_manager.get_credential("OPENROUTER_API_KEY")
-
-   # Get all credentials for a scope
-   airtable_creds = auth_manager.get_credentials_for_scope(AuthScope.AIRTABLE)
+   # Create a session and validate it
+   session = security.create_session("demo_user")
+   valid, _ = security.validate_session(session["access_token"])
    ```
 
 4. Run the example script:
@@ -76,44 +73,21 @@ Key credentials include:
    python example.py
    ```
 
-## Using System Keyring
+## Example Script
 
-To use the system keyring instead of a `.env` file:
+Run the example script to see the security components in action:
 
-```python
-from src.auth import AuthManager
-from pydantic import BaseModel
-
-# Define custom auth config
-class CustomAuthConfig(BaseModel):
-    use_keyring: bool = True
-    service_name: str = "my_service_name"
-
-# Initialize auth manager with custom config
-auth_config = CustomAuthConfig()
-auth_manager = AuthManager(config=auth_config)
-
-# Now credentials will be stored and retrieved from system keyring
-auth_manager.set_credential("MY_API_KEY", "secret-value")
+```bash
+python example.py
 ```
 
 ## Implementation Details
 
 The authentication system consists of:
 
-1. **CredentialStore**: Abstract base class defining the interface for credential storage
-   - `DotenvCredentialStore`: Stores credentials in a `.env` file
-   - `KeyringCredentialStore`: Stores credentials in the system keyring
-   - `MemoryCredentialStore`: In-memory storage for testing
+1. **ApiKeyManager**: Handles loading and validating API keys from the environment
+2. **Auth**: Provides simple session management with token validation
+3. **DataProtection**: Redacts sensitive data from logs and requests
+4. **Request/Response Validators**: Ensure incoming and outgoing data is safe
+5. **SecurityManager**: Convenience wrapper that exposes all of the above
 
-2. **AuthManager**: Central manager for handling credentials
-   - Manages credential metadata
-   - Validates required credentials
-   - Provides access to credentials by key or scope
-
-3. **AuthScope**: Enum defining different credential scopes
-   - LLM: For LLM API access
-   - AIRTABLE: For Airtable MCP
-   - EXA: For Exa MCP
-   - DESKTOP: For DesktopCommander MCP
-   - CONTEXT7: For Context7 MCP
