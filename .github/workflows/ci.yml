@@ -21,5 +21,9 @@ jobs:
           poetry-version: '1.5.1'
       - name: Install dependencies
         run: poetry install --no-interaction --no-ansi
+      - name: Run pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files --show-diff-on-failure
       - name: Run tests
         run: poetry run pytest -q
