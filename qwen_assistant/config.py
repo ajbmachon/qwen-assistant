@@ -128,6 +128,8 @@ def _update_from_env(config: Dict[str, Any]) -> None:
     Environment variables format:
     - QWEN_MODEL_ROUTER: Router model name
     - QWEN_MCP_DESKTOP_ENDPOINT: Desktop MCP server endpoint
+    - QWEN_UI_PORT: Gradio UI port
+    - QWEN_UI_TITLE: Title shown in the UI
     
     Args:
         config: Configuration to update
@@ -150,6 +152,7 @@ def _update_from_env(config: Dict[str, Any]) -> None:
         
         # UI Configuration
         "QWEN_UI_PORT": ("ui", "port"),
+        "QWEN_UI_TITLE": ("ui", "title"),
     }
     
     for env_var, config_path in env_mappings.items():

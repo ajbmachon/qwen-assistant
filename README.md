@@ -57,6 +57,12 @@ The system follows a modular architecture with clear separation of concerns:
    cp .env.example .env
    # Edit .env with your API keys and configuration
    ```
+   The following environment variables are used:
+   - `OPENROUTER_API_KEY` – Qwen model access key (required)
+   - `EXA_API_KEY` – Search Agent API key (required)
+   - `AIRTABLE_API_KEY` – Data Agent API key (required)
+   - `CONTEXT7_TOKEN` – Documentation Agent token (optional)
+   - `QWEN_UI_PORT` – Port for the Gradio UI (optional)
 
 ## Authentication
 
@@ -143,5 +149,6 @@ poetry run pytest --cov=qwen_assistant tests/
 5. Submit a pull request
 
 ## License
+
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
