@@ -160,6 +160,7 @@ class AuthManager:
                 if value:
                     result[cred_key] = value
         return result
+
     
     def validate_credentials(self, scope: Optional[AuthScope] = None) -> Tuple[bool, List[str]]:
         """Validate required credentials are available.
