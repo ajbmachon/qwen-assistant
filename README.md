@@ -113,7 +113,8 @@ Start the application:
 poetry run python -m qwen_assistant
 ```
 
-The application will be available at http://localhost:7860 (default Gradio port).
+This command launches the native Qwen-Agent Gradio interface. The application
+will be available at http://localhost:7860 by default.
 
 ## Development
 
