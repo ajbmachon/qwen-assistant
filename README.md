@@ -144,4 +144,4 @@ poetry run pytest --cov=qwen_assistant tests/
 
 ## License
 
-[Insert appropriate license information here]
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
